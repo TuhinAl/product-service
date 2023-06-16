@@ -1,11 +1,17 @@
-POST http://localhost:9023/api/v1/clinical/bed
+POST http://localhost:8080/api/category
 Content-Type: application/json
-Authorization: Bearer {{access_token}}
 
 {
-  "name": "bed 1",
-  "enabled": true,
-  "wardDto": {
-    "id": "2518ae0d-9b44-4f20-8fcc-a90c7e925220"
-  }
+  "id": "",
+  "categoryName": "Grocery",
+  "description": "These are all Grocery Product."
+}
+
+###
+POST http://localhost:8080/api/category/search
+Content-Type: application/json
+
+{
+  "page": 0,
+  "size": 10
 }

@@ -24,7 +24,7 @@ import java.util.List;
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Category {
+public class Category extends Auditable{
     
     @Id
     @GeneratedValue(generator = "uuid")

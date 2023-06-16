@@ -39,8 +39,10 @@ public class ProductService {
     public ProductDto save(ProductDto productDto) {
         Category category = categoryRepository.findById(productDto.getCategoryId())
                 .orElseThrow(() -> new EntityNotFoundException("Category With This Id is not Found!"));
-        Product product = productRepository.save(copyProp(productDto, Product.class));
+        
+        Product product = copyProp(productDto, Product.class);
         product.setCategory(category);
+        product.setCategoryName(category.getCategoryName());
         return copyProp(productRepository.save(product), ProductDto.class);
     }
     

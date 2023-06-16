@@ -24,7 +24,7 @@ public class CategoryPredicate {
         
         
         if (StringUtils.isNotBlank(categorySearchDto.getCategoryName())) {
-            builder.and(qCategory.categoryName.eq(categorySearchDto.getCategoryName()));
+            builder.and(qCategory.categoryName.containsIgnoreCase(categorySearchDto.getCategoryName()));
         }
         
         return builder;

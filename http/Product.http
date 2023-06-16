@@ -1,0 +1,20 @@
+POST http://localhost:8080/api/product
+Content-Type: application/json
+
+{
+  "id": "",
+  "productName":"Rosh Malai",
+  "description": "foods",
+  "unitPrice":700,
+  "unitsInStock": 30,
+  "categoryId":"8fa84e12-572c-47ed-bcdb-d5e33911c5c2"
+}
+
+###
+POST http://localhost:8080/api/product/search
+Content-Type: application/json
+
+{
+  "page": 0,
+  "size": 10
+}

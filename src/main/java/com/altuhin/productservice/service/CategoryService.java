@@ -3,6 +3,7 @@ package com.altuhin.productservice.service;
 import com.altuhin.productservice.controller.request_dto.CategorySearchDto;
 import com.altuhin.productservice.dto.CategoryDto;
 import com.altuhin.productservice.entity.Category;
+import com.altuhin.productservice.entity.QCategory;
 import com.altuhin.productservice.entity.QProduct;
 import com.altuhin.productservice.repository.CategoryRepository;
 import com.altuhin.productservice.service.predicate.CategoryPredicate;
@@ -50,18 +51,19 @@ public class CategoryService {
     }
     
     public Page<CategoryDto> search(CategorySearchDto categorySearchDto) {
-        final QProduct qProduct = QProduct.product;
+        final QCategory qCategory = QCategory.category;
         final JPAQuery<Category> categoryQuery = new JPAQuery<>(entityManager);
         
         Predicate predicate = CategoryPredicate.search(categorySearchDto);
-        Pageable pageable = PageRequest.of(categorySearchDto.getPage(), categorySearchDto.getSize());
+        Pageable pageable = PageRequest.of(categorySearchDto.getPage(),
+                categorySearchDto.getSize());
         
         var query = categoryQuery
-                .from(qProduct)
+                .from(qCategory)
                 .where(predicate)
                 .limit(pageable.getPageSize())
                 .offset(pageable.getOffset())
-                .orderBy(qProduct.createdDate.desc());
+                .orderBy(qCategory.createdDate.desc());
         
         return new PageImpl<>( copyList(query.fetch(), CategoryDto.class), pageable, query.fetchCount());
     }

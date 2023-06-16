@@ -1,10 +1,8 @@
 package com.altuhin.productservice.service;
 
-import com.altuhin.productservice.controller.request_dto.ProductSearchDto;
+import com.altuhin.productservice.controller.request_dto.CategorySearchDto;
 import com.altuhin.productservice.dto.CategoryDto;
-import com.altuhin.productservice.dto.ProductDto;
 import com.altuhin.productservice.entity.Category;
-import com.altuhin.productservice.entity.Product;
 import com.altuhin.productservice.entity.QProduct;
 import com.altuhin.productservice.repository.CategoryRepository;
 import com.querydsl.core.types.Predicate;
@@ -21,7 +19,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
-import static com.altuhin.productservice.service.ProductPredicate.searchPredicate;
+import static com.altuhin.productservice.service.predicate.CategoryPredicate.searchPredicate;
+import static com.altuhin.productservice.service.predicate.ProductPredicate.searchPredicate;
 import static com.altuhin.productservice.util.TransformUtil.copyList;
 import static com.altuhin.productservice.util.TransformUtil.copyProp;
 
@@ -35,36 +34,30 @@ public class CategoryService {
     private final EntityManager entityManager;
     
     @Transactional
-    public CategoryDto save(CategoryDto productDto) {
-        Category category = categoryRepository.findById(productDto.getCategoryName())
-                .orElseThrow(
-                        () -> new EntityNotFoundException("Category With This Id is not Found!")
-                );
-        Product product = productRepository.save(copyProp(productDto, Product.class));
-        product.setCategory(category);
-        return copyProp(productRepository.save(product), CategoryDto.class);
+    public CategoryDto save(CategoryDto categoryDto) {
+        Category category = categoryRepository.save(copyProp(categoryDto, Category.class));
+        return copyProp(categoryRepository.save(category), CategoryDto.class);
     }
     
     @Transactional
     public CategoryDto update(CategoryDto productDto) {
         
-        Category category = categoryRepository.findById(productDto.getCategoryId())
+        Category category = categoryRepository.findById(productDto.getId())
                 .orElseThrow(
                         () -> new EntityNotFoundException("Category With This Id is not Found!")
                 );
-        Product product = productRepository.save(copyProp(productDto, Product.class));
-        product.setCategory(category);
-        return copyProp(productRepository.save(product), CategoryDto.class);
+       
+        return copyProp(categoryRepository.save(category), CategoryDto.class);
     }
     
-    public Page<CategoryDto> search(ProductSearchDto productSearchDto) {
+    public Page<CategoryDto> search(CategorySearchDto categorySearchDto) {
         final QProduct qProduct = QProduct.product;
-        final JPAQuery<Product> productQuery = new JPAQuery<>(entityManager);
+        final JPAQuery<Category> categoryQuery = new JPAQuery<>(entityManager);
         
-        Predicate predicate = searchPredicate(productSearchDto);
-        Pageable pageable = PageRequest.of(productSearchDto.getPage(), productSearchDto.getSize());
+        Predicate predicate = searchPredicate(categorySearchDto);
+        Pageable pageable = PageRequest.of(categorySearchDto.getPage(), categorySearchDto.getSize());
         
-        var query = productQuery
+        var query = categoryQuery
                 .from(qProduct)
                 .where(predicate)
                 .limit(pageable.getPageSize())

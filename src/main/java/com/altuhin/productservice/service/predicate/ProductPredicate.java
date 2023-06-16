@@ -1,4 +1,4 @@
-package com.altuhin.productservice.service;
+package com.altuhin.productservice.service.predicate;
 
 import com.altuhin.productservice.controller.request_dto.ProductSearchDto;
 import com.altuhin.productservice.entity.QProduct;
@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 public class ProductPredicate {
     private static final QProduct qProduct = QProduct.product;
     
-    public static BooleanBuilder searchPredicate(ProductSearchDto productSearchDto) {
+    public static BooleanBuilder search(ProductSearchDto productSearchDto) {
         
         BooleanBuilder builder = new BooleanBuilder();
         

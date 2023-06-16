@@ -8,7 +8,6 @@ import com.altuhin.productservice.entity.Product;
 import com.altuhin.productservice.entity.QProduct;
 import com.altuhin.productservice.repository.CategoryRepository;
 import com.altuhin.productservice.repository.ProductRepository;
-import com.altuhin.productservice.util.TransformUtil;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
 import lombok.RequiredArgsConstructor;
@@ -17,14 +16,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
-import static com.altuhin.productservice.service.ProductPredicate.searchPredicate;
+import static com.altuhin.productservice.service.predicate.ProductPredicate.searchPredicate;
 import static com.altuhin.productservice.util.TransformUtil.copyList;
 import static com.altuhin.productservice.util.TransformUtil.copyProp;
 

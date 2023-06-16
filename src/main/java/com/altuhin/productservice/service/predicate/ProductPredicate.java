@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 public class ProductPredicate {
     private static final QProduct qProduct = QProduct.product;
     
-    public static BooleanBuilder search(ProductSearchDto productSearchDto) {
+    public static BooleanBuilder searchPredicate(ProductSearchDto productSearchDto) {
         
         BooleanBuilder builder = new BooleanBuilder();
         

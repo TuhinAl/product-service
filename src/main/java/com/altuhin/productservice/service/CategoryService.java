@@ -5,6 +5,7 @@ import com.altuhin.productservice.dto.CategoryDto;
 import com.altuhin.productservice.entity.Category;
 import com.altuhin.productservice.entity.QProduct;
 import com.altuhin.productservice.repository.CategoryRepository;
+import com.altuhin.productservice.service.predicate.CategoryPredicate;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQuery;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 
-import static com.altuhin.productservice.service.predicate.CategoryPredicate.searchPredicate;
-import static com.altuhin.productservice.service.predicate.ProductPredicate.searchPredicate;
 import static com.altuhin.productservice.util.TransformUtil.copyList;
 import static com.altuhin.productservice.util.TransformUtil.copyProp;
 
@@ -54,7 +53,7 @@ public class CategoryService {
         final QProduct qProduct = QProduct.product;
         final JPAQuery<Category> categoryQuery = new JPAQuery<>(entityManager);
         
-        Predicate predicate = searchPredicate(categorySearchDto);
+        Predicate predicate = CategoryPredicate.search(categorySearchDto);
         Pageable pageable = PageRequest.of(categorySearchDto.getPage(), categorySearchDto.getSize());
         
         var query = categoryQuery

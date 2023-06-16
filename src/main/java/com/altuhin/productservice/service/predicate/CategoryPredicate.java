@@ -10,7 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 public class CategoryPredicate {
     private static final QCategory qCategory = QCategory.category;
     
-    public static BooleanBuilder searchPredicate(CategorySearchDto categorySearchDto) {
+    public static BooleanBuilder search(CategorySearchDto categorySearchDto) {
         
         BooleanBuilder builder = new BooleanBuilder();
         

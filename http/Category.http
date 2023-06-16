@@ -1,0 +1,11 @@
+POST http://localhost:9023/api/v1/clinical/bed
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "name": "bed 1",
+  "enabled": true,
+  "wardDto": {
+    "id": "2518ae0d-9b44-4f20-8fcc-a90c7e925220"
+  }
+}
